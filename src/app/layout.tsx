@@ -1,0 +1,43 @@
+import type { Metadata } from 'next'
+import './globals.css'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: '小小树 - K12学习平台',
+  description: '像小树一样茁壮成长',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="zh-CN">
+      <body className="bg-gray-50 min-h-screen">
+        <nav className="bg-white shadow-sm">
+          <div className="max-w-6xl mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <Link href="/" className="flex items-center gap-2">
+                <span className="text-3xl">🌱</span>
+                <span className="text-xl font-bold text-green-600">小小树</span>
+              </Link>
+              <div className="flex gap-6">
+                <Link href="/" className="text-gray-600 hover:text-green-600 transition">首页</Link>
+                <Link href="/math" className="text-gray-600 hover:text-green-600 transition">数学</Link>
+                <Link href="/knowledge-tree" className="text-gray-600 hover:text-green-600 transition">知识图谱</Link>
+              </div>
+            </div>
+          </div>
+        </nav>
+        {children}
+        <footer className="bg-gray-800 text-white py-8 mt-16">
+          <div className="max-w-6xl mx-auto px-4 text-center">
+            <p className="text-lg mb-2">🌱 小小树 - 像小树一样茁壮成长</p>
+            <p className="text-gray-400 text-sm">免费学习资源平台 · 永久免费</p>
+          </div>
+        </footer>
+      </body>
+    </html>
+  )
+}
