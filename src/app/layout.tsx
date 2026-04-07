@@ -27,6 +27,7 @@ export default function RootLayout({
                 <Link href="/math" className="text-gray-600 hover:text-green-600 transition">数学</Link>
                 <Link href="/methods" className="text-gray-600 hover:text-green-600 transition">学习方法</Link>
                 <Link href="/knowledge-tree" className="text-gray-600 hover:text-green-600 transition">知识图谱</Link>
+                <Link href="/jobs" className="text-gray-600 hover:text-green-600 transition">就业</Link>
               </div>
             </div>
           </div>
