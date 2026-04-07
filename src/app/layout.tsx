@@ -25,6 +25,7 @@ export default function RootLayout({
               <div className="flex gap-6">
                 <Link href="/" className="text-gray-600 hover:text-green-600 transition">首页</Link>
                 <Link href="/math" className="text-gray-600 hover:text-green-600 transition">数学</Link>
+                <Link href="/methods" className="text-gray-600 hover:text-green-600 transition">学习方法</Link>
                 <Link href="/knowledge-tree" className="text-gray-600 hover:text-green-600 transition">知识图谱</Link>
               </div>
             </div>

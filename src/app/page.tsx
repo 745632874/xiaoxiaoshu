@@ -49,10 +49,10 @@ export default function Home() {
             <p className="text-gray-600 text-center mb-4">7-9年级</p>
             <ul className="text-gray-600 space-y-2">
               <li>✅ 数学</li>
-              <li>✅ 语文</li>
-              <li>✅ 英语</li>
               <li>✅ 物理</li>
               <li>✅ 化学</li>
+              <li>✅ 语文</li>
+              <li>✅ 英语</li>
             </ul>
             <div className="mt-6 text-center">
               <span className="text-green-600 font-semibold group-hover:underline">进入学习 →</span>
@@ -66,15 +66,47 @@ export default function Home() {
             <p className="text-gray-600 text-center mb-4">10-12年级</p>
             <ul className="text-gray-600 space-y-2">
               <li>✅ 数学</li>
-              <li>✅ 语文</li>
-              <li>✅ 英语</li>
               <li>✅ 物理</li>
               <li>✅ 化学</li>
+              <li>✅ 语文</li>
+              <li>✅ 英语</li>
               <li>✅ 生物</li>
             </ul>
             <div className="mt-6 text-center">
-              <span className="text-green-600 font-semibold group-hover:underline">即将上线 →</span>
+              <span className="text-green-600 font-semibold group-hover:underline">进入学习 →</span>
             </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* 科目快速入口 */}
+      <section className="py-12">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">
+          快速选择科目
+        </h2>
+        <div className="grid md:grid-cols-4 gap-6">
+          <Link href="/math" className="bg-gradient-to-br from-green-400 to-green-600 text-white p-6 rounded-xl shadow-md hover:shadow-xl transition group">
+            <div className="text-4xl mb-3">📐</div>
+            <h3 className="text-xl font-bold mb-2">数学</h3>
+            <p className="text-green-100 text-sm">代数 · 几何 · 函数</p>
+          </Link>
+
+          <Link href="/physics" className="bg-gradient-to-br from-blue-400 to-blue-600 text-white p-6 rounded-xl shadow-md hover:shadow-xl transition group">
+            <div className="text-4xl mb-3">⚡</div>
+            <h3 className="text-xl font-bold mb-2">物理</h3>
+            <p className="text-blue-100 text-sm">力学 · 电学 · 光学</p>
+          </Link>
+
+          <Link href="/chemistry" className="bg-gradient-to-br from-purple-400 to-purple-600 text-white p-6 rounded-xl shadow-md hover:shadow-xl transition group">
+            <div className="text-4xl mb-3">🧪</div>
+            <h3 className="text-xl font-bold mb-2">化学</h3>
+            <p className="text-purple-100 text-sm">元素 · 反应 · 周期表</p>
+          </Link>
+
+          <Link href="/methods" className="bg-gradient-to-br from-orange-400 to-orange-600 text-white p-6 rounded-xl shadow-md hover:shadow-xl transition group">
+            <div className="text-4xl mb-3">💡</div>
+            <h3 className="text-xl font-bold mb-2">学习方法</h3>
+            <p className="text-orange-100 text-sm">技巧 · 记忆 · 效率</p>
           </Link>
         </div>
       </section>
