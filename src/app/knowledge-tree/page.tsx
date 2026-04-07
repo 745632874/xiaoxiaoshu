@@ -1,17 +1,15 @@
 'use client'
 
 import React, { useCallback, useMemo, useState } from 'react'
-import ReactFlow, {
+import {
   Background,
   Controls,
   MiniMap,
-  Node,
-  Edge,
-  ConnectionMode,
   useNodesState,
   useEdgesState,
   BackgroundVariant,
   Panel,
+  ReactFlow,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { mathKnowledgeTree, treeToGraph, getNodeColor } from '@/data/knowledgeTree'
@@ -23,13 +21,13 @@ export default function KnowledgeTreePage() {
   const [selectedNode, setSelectedNode] = useState<string | null>(null)
 
   // 将树形结构转换为图表数据
-  const { nodes: initialNodes, edges: initialEdges } = useMemo(
+  const graphData = useMemo(
     () => treeToGraph(mathKnowledgeTree),
     []
   )
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
+  const [nodes, setNodes, onNodesChange] = useNodesState(graphData.nodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(graphData.edges)
 
   // 自定义节点组件
   const nodeTypes = useMemo(
@@ -43,12 +41,12 @@ export default function KnowledgeTreePage() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (!searchQuery.trim()) {
-      setNodes(initialNodes)
+      setNodes(graphData.nodes)
       setSelectedNode(null)
       return
     }
 
-    const matchedNode = initialNodes.find(
+    const matchedNode = graphData.nodes.find(
       (node) =>
         node.data.label.toLowerCase().includes(searchQuery.toLowerCase())
     )
@@ -57,7 +55,7 @@ export default function KnowledgeTreePage() {
       setSelectedNode(matchedNode.id)
       // 高亮匹配节点
       setNodes(
-        initialNodes.map((node) => ({
+        graphData.nodes.map((node) => ({
           ...node,
           style: {
             ...node.style,
@@ -72,8 +70,8 @@ export default function KnowledgeTreePage() {
 
   // 重置视图
   const handleReset = () => {
-    setNodes(initialNodes)
-    setEdges(initialEdges)
+    setNodes(graphData.nodes)
+    setEdges(graphData.edges)
     setSearchQuery('')
     setSelectedNode(null)
   }
@@ -93,7 +91,6 @@ export default function KnowledgeTreePage() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
-        connectionMode={ConnectionMode.Loose}
         fitView
         fitViewOptions={{ padding: 0.2 }}
         minZoom={0.3}

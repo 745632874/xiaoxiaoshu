@@ -12,6 +12,12 @@ export interface TreeNode {
   data?: any // 原始知识点数据
 }
 
+// 图表数据类型
+export interface GraphData {
+  nodes: any[]
+  edges: any[]
+}
+
 // 数学知识图谱树形结构
 export const mathKnowledgeTree: TreeNode = {
   id: 'root',
@@ -503,17 +509,19 @@ export const mathKnowledgeTree: TreeNode = {
 }
 
 // 获取节点的颜色
-export function getNodeColor(node: TreeNode): string {
+export function getNodeColor(node: any): string {
+  const grade = node.data?.grade
+
   // 小学 - 绿色系
-  if (node.grade === 'primary') {
+  if (grade === 'primary') {
     return '#4ADE80' // 绿色
   }
   // 初中 - 蓝色系
-  if (node.grade === 'middle') {
+  if (grade === 'middle') {
     return '#60A5FA' // 蓝色
   }
   // 高中 - 紫色系
-  if (node.grade === 'high') {
+  if (grade === 'high') {
     return '#A78BFA' // 紫色
   }
   // 根节点
@@ -521,13 +529,21 @@ export function getNodeColor(node: TreeNode): string {
 }
 
 // 将树形结构转换为节点和边（用于React Flow）
-export function treeToGraph(tree: TreeNode): any[] {
+export function treeToGraph(tree: TreeNode): GraphData {
   const nodes: any[] = []
   const edges: any[] = []
 
+  let nodeCount = 0
+  const nodesByDepth: Map<number, number> = new Map()
+
   function traverse(node: TreeNode, parentId: string | null, depth: number = 0) {
-    const x = depth * 300
-    const y = nodes.filter(n => n.data.depth === depth).length * 120
+    nodeCount++
+
+    const currentCountInDepth = (nodesByDepth.get(depth) || 0) + 1
+    nodesByDepth.set(depth, currentCountInDepth)
+
+    const x = depth * 320
+    const y = (currentCountInDepth - 1) * 120
 
     nodes.push({
       id: node.id,
@@ -536,7 +552,7 @@ export function treeToGraph(tree: TreeNode): any[] {
       data: {
         ...node,
         depth,
-        color: getNodeColor(node),
+        color: getNodeColor({ data: node }),
       },
     })
 
@@ -547,12 +563,12 @@ export function treeToGraph(tree: TreeNode): any[] {
         target: node.id,
         type: 'smoothstep',
         animated: true,
-        style: { stroke: getNodeColor(node), strokeWidth: 2 },
+        style: { stroke: getNodeColor({ data: node }), strokeWidth: 2 },
       })
     }
 
     if (node.children) {
-      node.children.forEach((child, index) => {
+      node.children.forEach((child) => {
         traverse(child, node.id, depth + 1)
       })
     }
