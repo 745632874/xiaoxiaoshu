@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.13",
-    "lastTouchedAt": "2026-03-24T13:40:17.592Z"
+    "lastTouchedAt": "2026-04-07T06:08:44.751Z"
   },
   "wizard": {
     "lastRunAt": "2026-02-05T16:16:05.545Z",
@@ -232,13 +232,15 @@
   },
   "channels": {
     "feishu": {
-      "allowFrom": [],
-      "appId": "",
-      "appSecret": "",
+      "allowFrom": [
+        "ou_9be6adf2e39ed3af00c9b2babf5e8bc5"
+      ],
+      "appId": "cli_a95e235976bc9cd3",
+      "appSecret": "zRF8XLgm1Se4J5wJjei3XbXy8S0CFpEo",
       "connectionMode": "websocket",
-      "dmPolicy": "pairing",
+      "dmPolicy": "allowlist",
       "domain": "feishu",
-      "enabled": false,
+      "enabled": true,
       "groupAllowFrom": [],
       "groupPolicy": "open",
       "requireMention": true,
@@ -258,7 +260,7 @@
     },
     "auth": {
       "mode": "token",
-      "token": "0e427be7-7cff-491c-af93-0e3dd59b6f85"
+      "token": "d43dc7fe-ea74-46b1-a43b-78eccf6615f9"
     },
     "trustedProxies": [
       "::1",
