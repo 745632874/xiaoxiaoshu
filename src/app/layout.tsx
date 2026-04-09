@@ -28,6 +28,9 @@ export default function RootLayout({
                 <Link href="/methods" className="text-gray-600 hover:text-green-600 transition">学习方法</Link>
                 <Link href="/knowledge-tree" className="text-gray-600 hover:text-green-600 transition">知识图谱</Link>
                 <Link href="/jobs" className="text-gray-600 hover:text-green-600 transition">就业</Link>
+                <Link href="/membership" className="bg-green-500 text-white px-4 py-1 rounded-full hover:bg-green-600 transition">
+                  🌱 会员
+                </Link>
               </div>
             </div>
           </div>
@@ -36,7 +39,10 @@ export default function RootLayout({
         <footer className="bg-gray-800 text-white py-8 mt-16">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <p className="text-lg mb-2">🌱 小小树 - 像小树一样茁壮成长</p>
-            <p className="text-gray-400 text-sm">免费学习资源平台 · 永久免费</p>
+            <p className="text-gray-400 text-sm mb-4">免费学习资源平台</p>
+            <Link href="/membership" className="text-green-400 hover:text-green-300 transition text-sm">
+              开通会员 · AI答疑 ¥9.9/月 →
+            </Link>
           </div>
         </footer>
       </body>
