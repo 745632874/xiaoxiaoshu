@@ -103,6 +103,12 @@ export default function Home() {
             <p className="text-purple-100 text-sm">元素 · 反应 · 周期表</p>
           </Link>
 
+          <Link href="/biology" className="bg-gradient-to-br from-green-500 to-green-700 text-white p-6 rounded-xl shadow-md hover:shadow-xl transition group">
+            <div className="text-4xl mb-3">🧬</div>
+            <h3 className="text-xl font-bold mb-2">生物</h3>
+            <p className="text-green-100 text-sm">细胞 · 遗传 · 生态</p>
+          </Link>
+
           <Link href="/methods" className="bg-gradient-to-br from-orange-400 to-orange-600 text-white p-6 rounded-xl shadow-md hover:shadow-xl transition group">
             <div className="text-4xl mb-3">💡</div>
             <h3 className="text-xl font-bold mb-2">学习方法</h3>
