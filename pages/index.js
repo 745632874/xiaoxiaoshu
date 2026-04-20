@@ -52,6 +52,7 @@ export default function Home() {
             <Link href="/skills">战法解析</Link>
             <Link href="/guides">攻略中心</Link>
             <Link href="/simulator">配将模拟器</Link>
+            <Link href="/tools">开源工具</Link>
             <Link href="/community">社区评分</Link>
             <Link href="/feedback">反馈建议</Link>
           </div>
@@ -59,15 +60,18 @@ export default function Home() {
       </nav>
 
       {/* Hero区域 */}
-      <section className="hero">
-        <h1 className="hero-title">⚔️ 率土<span>百科</span></h1>
-        <p className="hero-subtitle">
+      <section className="hero gradient-bg-animated">
+        <h1 className="hero-title" style={{ animation: 'fadeInDown 0.8s ease forwards' }}>
+          ⚔️ 率土<span className="gradient-text-animated">百科</span>
+        </h1>
+        <p className="hero-subtitle" style={{ animation: 'fadeInUp 0.8s ease forwards', animationDelay: '0.2s' }}>
           最全面的率土之滨游戏辅助工具，武将数据、阵容推荐、配将模拟器、攻略大全
         </p>
-        <div className="hero-badges">
+        <div className="hero-badges" style={{ animation: 'fadeInUp 0.8s ease forwards', animationDelay: '0.4s' }}>
           <span className="badge">🏛️ {HEROES.length} 武将数据</span>
           <span className="badge">⛏️ {kaihuangTeams.length} 开荒模版</span>
           <span className="badge">⚔️ {FORMATIONS.filter(f => !f.isKaihuang).length} PVP阵容</span>
+          <span className="badge">🛠️ 6+ 开源工具</span>
           <span className="badge">📖 持续更新</span>
         </div>
         <div className="hero-search" style={{ position: 'relative' }}>
@@ -218,22 +222,42 @@ export default function Home() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '12px' }}>
           {[
-            { href: '/heroes', icon: '🏛️', title: '武将库', desc: '30+武将数据' },
+            { href: '/heroes', icon: '🏛️', title: '武将库', desc: '43+武将数据' },
             { href: '/formations', icon: '⚔️', title: '阵容推荐', desc: 'T0-T3阵容排行' },
+            { href: '/kaihuang', icon: '⛏️', title: '开荒模版', desc: '7大经典阵容' },
             { href: '/skills', icon: '📖', title: '战法解析', desc: '战法配置推荐' },
             { href: '/guides', icon: '📚', title: '攻略中心', desc: '新手到精通' },
             { href: '/simulator', icon: '🧮', title: '配将模拟器', desc: '自由搭配阵容' },
+            { href: '/tools', icon: '🛠️', title: '开源工具', desc: '6+实用工具', isNew: true },
             { href: '/community', icon: '⭐', title: '社区评分', desc: '玩家真实评价' },
-          ].map(item => (
+          ].map((item, index) => (
             <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
-              <div style={{
+              <div className="card-hover" style={{
                 background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 'var(--radius)',
-                padding: '20px', textAlign: 'center', transition: 'all 0.2s', cursor: 'pointer'
+                padding: '20px', textAlign: 'center', transition: 'all 0.3s', cursor: 'pointer',
+                position: 'relative', animation: `fadeInUp 0.6s ease forwards`,
+                animationDelay: `${index * 0.05}s`, opacity: 0
               }}
-                onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
-                onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)' }}
+                onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(201, 168, 76, 0.15)' }}
+                onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
               >
-                <div style={{ fontSize: '32px', marginBottom: '10px' }}>{item.icon}</div>
+                {item.isNew && (
+                  <span style={{
+                    position: 'absolute',
+                    top: '8px',
+                    right: '8px',
+                    background: 'linear-gradient(135deg, #e74c3c, #c0392b)',
+                    color: '#fff',
+                    padding: '2px 8px',
+                    borderRadius: '10px',
+                    fontSize: '10px',
+                    fontWeight: '700',
+                    animation: 'pulse 2s ease-in-out infinite'
+                  }}>
+                    NEW
+                  </span>
+                )}
+                <div style={{ fontSize: '32px', marginBottom: '10px', animation: 'float 3s ease-in-out infinite' }}>{item.icon}</div>
                 <div style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)', marginBottom: '4px' }}>{item.title}</div>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{item.desc}</div>
               </div>
@@ -257,10 +281,41 @@ export default function Home() {
           <Link href="/"><span>🏠</span><span>首页</span></Link>
           <Link href="/heroes"><span>🏛️</span><span>武将</span></Link>
           <Link href="/formations"><span>⚔️</span><span>阵容</span></Link>
-          <Link href="/simulator"><span>🧮</span><span>模拟</span></Link>
+          <Link href="/tools"><span>🛠️</span><span>工具</span></Link>
           <Link href="/feedback"><span>💬</span><span>反馈</span></Link>
         </div>
       </nav>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes fadeInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+      `}</style>
     </div>
   )
 }
