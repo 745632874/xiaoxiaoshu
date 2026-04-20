@@ -27,6 +27,7 @@ export default function Skills() {
           <div className="navbar-links">
             <Link href="/heroes">武将库</Link>
             <Link href="/formations">阵容推荐</Link>
+            <Link href="/kaihuang">开荒模版</Link>
             <Link href="/skills" className="active">战法解析</Link>
             <Link href="/guides">攻略中心</Link>
             <Link href="/simulator">配将模拟器</Link>

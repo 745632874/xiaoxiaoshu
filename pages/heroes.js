@@ -38,6 +38,7 @@ export default function Heroes({ initialQuery }) {
           <div className="navbar-links">
             <Link href="/heroes" className="active">武将库</Link>
             <Link href="/formations">阵容推荐</Link>
+            <Link href="/kaihuang">开荒模版</Link>
             <Link href="/skills">战法解析</Link>
             <Link href="/guides">攻略中心</Link>
             <Link href="/simulator">配将模拟器</Link>

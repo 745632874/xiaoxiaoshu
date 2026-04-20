@@ -25,7 +25,8 @@ export default function Home() {
   }, [searchQuery])
 
   const topHeroes = [...HEROES].sort((a, b) => b.rating.score - a.rating.score).slice(0, 6)
-  const topFormations = [...FORMATIONS].sort((a, b) => b.rating.score - a.rating.score).slice(0, 4)
+  const topFormations = [...FORMATIONS].filter(f => !f.isKaihuang).sort((a, b) => b.rating.score - a.rating.score).slice(0, 4)
+  const kaihuangTeams = FORMATIONS.filter(f => f.isKaihuang).sort((a, b) => b.rating.score - a.rating.score)
 
   const COUNTRY_COLOR = { '魏': '#3498db', '蜀': '#27ae60', '吴': '#e74c3c', '群': '#9b59b6' }
 
@@ -47,6 +48,7 @@ export default function Home() {
           <div className="navbar-links">
             <Link href="/heroes">武将库</Link>
             <Link href="/formations">阵容推荐</Link>
+            <Link href="/kaihuang">开荒模版</Link>
             <Link href="/skills">战法解析</Link>
             <Link href="/guides">攻略中心</Link>
             <Link href="/simulator">配将模拟器</Link>
@@ -63,8 +65,9 @@ export default function Home() {
           最全面的率土之滨游戏辅助工具，武将数据、阵容推荐、配将模拟器、攻略大全
         </p>
         <div className="hero-badges">
-          <span className="badge">🛡️ {HEROES.length} 武将数据</span>
-          <span className="badge">⚔️ {FORMATIONS.length} 阵容推荐</span>
+          <span className="badge">🏛️ {HEROES.length} 武将数据</span>
+          <span className="badge">⛏️ {kaihuangTeams.length} 开荒模版</span>
+          <span className="badge">⚔️ {FORMATIONS.filter(f => !f.isKaihuang).length} PVP阵容</span>
           <span className="badge">📖 持续更新</span>
         </div>
         <div className="hero-search" style={{ position: 'relative' }}>
