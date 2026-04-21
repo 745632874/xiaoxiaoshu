@@ -40,7 +40,7 @@ export default function Kaihuang() {
             <Link href="/skills">战法解析</Link>
             <Link href="/guides">攻略中心</Link>
             <Link href="/simulator">配将模拟器</Link>
-            <Link href="/community">社区评分</Link>
+            
           </div>
         </div>
       </nav>

@@ -28,13 +28,13 @@ export default function Home() {
   const topFormations = [...FORMATIONS].filter(f => !f.isKaihuang).sort((a, b) => b.rating.score - a.rating.score).slice(0, 4)
   const kaihuangTeams = FORMATIONS.filter(f => f.isKaihuang).sort((a, b) => b.rating.score - a.rating.score)
 
-  const COUNTRY_COLOR = { '魏': '#3498db', '蜀': '#27ae60', '吴': '#e74c3c', '群': '#9b59b6' }
+  const COUNTRY_COLOR = { '魏': '#3498db', '蜀': '#27ae60', '吴': '#e74c3c', '群': '#9b59b6', '晋': '#f39c12', '汉': '#1abc9c' }
 
   return (
     <div>
       <Head>
         <title>率土百科 - 率土之滨游戏辅助网站</title>
-        <meta name="description" content="率土之滨游戏辅助网站，武将库、阵容推荐、配将模拟器、战法解析、攻略大全" />
+        <meta name="description" content="率土之滨游戏辅助网站，武将库、阵容推荐、配将模拟器、战法解析" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>" />
       </Head>
 
@@ -52,10 +52,6 @@ export default function Home() {
             <Link href="/skills">战法解析</Link>
             <Link href="/guides">攻略中心</Link>
             <Link href="/simulator">配将模拟器</Link>
-            <Link href="/gacha">抽卡模拟</Link>
-            <Link href="/ocr">战报分析</Link>
-            <Link href="/tools">工具箱</Link>
-            <Link href="/feedback">反馈建议</Link>
           </div>
         </div>
       </nav>
@@ -66,14 +62,12 @@ export default function Home() {
           ⚔️ 率土<span className="gradient-text-animated">百科</span>
         </h1>
         <p className="hero-subtitle" style={{ animation: 'fadeInUp 0.8s ease forwards', animationDelay: '0.2s' }}>
-          最全面的率土之滨游戏辅助工具，武将数据、阵容推荐、配将模拟器、攻略大全
+          专注实用的率土之滨辅助工具，武将数据、阵容推荐、开荒指南
         </p>
         <div className="hero-badges" style={{ animation: 'fadeInUp 0.8s ease forwards', animationDelay: '0.4s' }}>
           <span className="badge">🏛️ {HEROES.length} 武将数据</span>
           <span className="badge">⛏️ {kaihuangTeams.length} 开荒模版</span>
           <span className="badge">⚔️ {FORMATIONS.filter(f => !f.isKaihuang).length} PVP阵容</span>
-          <span className="badge">🎰 抽卡模拟</span>
-          <span className="badge">📊 战报分析</span>
           <span className="badge">📖 持续更新</span>
         </div>
         <div className="hero-search" style={{ position: 'relative' }}>
@@ -147,7 +141,7 @@ export default function Home() {
                   return (
                     <span key={name} style={{
                       padding: '5px 12px', borderRadius: '8px', fontSize: '13px', fontWeight: '600',
-                      background: hero ? COUNTRY_COLOR[hero.country] : 'var(--primary)', color: '#fff'
+                      background: hero ? COUNTRY_COLOR[hero.country] : '#666', color: '#fff'
                     }}>
                       {name}
                     </span>
@@ -172,41 +166,47 @@ export default function Home() {
           ))}
         </div>
 
-        {/* 热门武将 */}
+        {/* 热门武将排行榜 */}
         <div className="page-header">
           <h2 className="page-title">⭐ 热门武将排行榜</h2>
           <p className="page-desc">根据社区评分排列的最强武将</p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '16px', marginBottom: '40px' }}>
-          {topHeroes.map((hero, i) => (
+          {topHeroes.map((hero, index) => (
             <div key={hero.id} className="hero-card" style={{ '--hero-color': COUNTRY_COLOR[hero.country] }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontSize: '24px' }}>
-                    {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i + 1}`}
+                    {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
                   </span>
                   <span className="hero-name">{hero.name}</span>
                 </div>
-                <span className="hero-cost" style={{ background: COUNTRY_COLOR[hero.country] }}>
-                  {hero.cost}C
-                </span>
+                <span className="hero-cost" style={{ background: COUNTRY_COLOR[hero.country] }}>{hero.cost}C</span>
               </div>
               <div className="hero-meta">
-                <span className="tag tag-country" style={{ background: COUNTRY_COLOR[hero.country] }}>
-                  {hero.country}国
-                </span>
-                <span className="tag tag-rarity" style={{
-                  background: { star5: '#e74c3c', star4: '#f39c12', star3: '#95a5a6' }[hero.rarity]
-                }}>
-                  {'★'.repeat({ star5: 5, star4: 4, star3: 3 }[hero.rarity])}
+                <span className="tag tag-country" style={{ background: COUNTRY_COLOR[hero.country] }}>{hero.country}国</span>
+                <span className="tag tag-rarity" style={{ background: '#e74c3c' }}>
+                  {hero.rarity === 'star5' ? '★★★★★' : '★★★★'}
                 </span>
               </div>
               <div className="hero-stats">
-                <div className="stat-item"><div className="stat-label">攻击</div><div className="stat-value">{hero.stats.atk}</div></div>
-                <div className="stat-item"><div className="stat-label">防御</div><div className="stat-value">{hero.stats.def}</div></div>
-                <div className="stat-item"><div className="stat-label">谋略</div><div className="stat-value">{hero.stats.intel}</div></div>
-                <div className="stat-item"><div className="stat-label">速度</div><div className="stat-value">{hero.stats.spd}</div></div>
+                <div className="stat-item">
+                  <div className="stat-label">攻击</div>
+                  <div className="stat-value">{hero.stats.atk}</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-label">防御</div>
+                  <div className="stat-value">{hero.stats.def}</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-label">谋略</div>
+                  <div className="stat-value">{hero.stats.intel}</div>
+                </div>
+                <div className="stat-item">
+                  <div className="stat-label">速度</div>
+                  <div className="stat-value">{hero.stats.spd}</div>
+                </div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '20px', fontWeight: '800', color: 'var(--orange)' }}>{hero.rating.score}</span>
@@ -230,9 +230,6 @@ export default function Home() {
             { href: '/skills', icon: '📖', title: '战法解析', desc: '战法配置推荐' },
             { href: '/guides', icon: '📚', title: '攻略中心', desc: '新手到精通' },
             { href: '/simulator', icon: '🧮', title: '配将模拟器', desc: '自由搭配阵容' },
-            { href: '/gacha', icon: '🎰', title: '抽卡模拟', desc: '测试欧气', isNew: true },
-            { href: '/ocr', icon: '📊', title: '战报分析', desc: 'OCR识别分析', isNew: true },
-            { href: '/community', icon: '⭐', title: '社区评分', desc: '玩家真实评价' },
           ].map((item, index) => (
             <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
               <div className="card-hover" style={{
@@ -244,22 +241,6 @@ export default function Home() {
                 onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(201, 168, 76, 0.15)' }}
                 onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
               >
-                {item.isNew && (
-                  <span style={{
-                    position: 'absolute',
-                    top: '8px',
-                    right: '8px',
-                    background: 'linear-gradient(135deg, #e74c3c, #c0392b)',
-                    color: '#fff',
-                    padding: '2px 8px',
-                    borderRadius: '10px',
-                    fontSize: '10px',
-                    fontWeight: '700',
-                    animation: 'pulse 2s ease-in-out infinite'
-                  }}>
-                    NEW
-                  </span>
-                )}
                 <div style={{ fontSize: '32px', marginBottom: '10px', animation: 'float 3s ease-in-out infinite' }}>{item.icon}</div>
                 <div style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)', marginBottom: '4px' }}>{item.title}</div>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{item.desc}</div>
@@ -273,7 +254,7 @@ export default function Home() {
       <div className="footer">
         <p>⚔️ 率土百科 · 率土之滨游戏辅助网站</p>
         <p style={{ marginTop: '8px' }}>
-          <Link href="/heroes">武将库</Link> · <Link href="/formations">阵容</Link> · <Link href="/simulator">配将</Link> · <Link href="/feedback">反馈</Link>
+          <Link href="/heroes">武将库</Link> · <Link href="/formations">阵容</Link> · <Link href="/simulator">配将</Link>
         </p>
         <p style={{ marginTop: '8px', opacity: 0.5 }}>© 2026 率土百科 · 仅供游戏参考</p>
       </div>
@@ -284,8 +265,8 @@ export default function Home() {
           <Link href="/"><span>🏠</span><span>首页</span></Link>
           <Link href="/heroes"><span>🏛️</span><span>武将</span></Link>
           <Link href="/formations"><span>⚔️</span><span>阵容</span></Link>
-          <Link href="/gacha"><span>🎰</span><span>抽卡</span></Link>
-          <Link href="/feedback"><span>💬</span><span>反馈</span></Link>
+          <Link href="/kaihuang"><span>⛏️</span><span>开荒</span></Link>
+          <Link href="/skills"><span>📖</span><span>战法</span></Link>
         </div>
       </nav>
 
@@ -313,10 +294,6 @@ export default function Home() {
         @keyframes float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
         }
       `}</style>
     </div>
