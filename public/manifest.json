@@ -1,0 +1,44 @@
+{
+  "name": "率土百科",
+  "short_name": "率土百科",
+  "description": "率土之滨游戏辅助工具",
+  "start_url": "/mini",
+  "display": "standalone",
+  "background_color": "#faf8f3",
+  "theme_color": "#d4a853",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["games", "utilities"],
+  "lang": "zh-CN",
+  "shortcuts": [
+    {
+      "name": "武将库",
+      "short_name": "武将",
+      "url": "/heroes",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "配将模拟",
+      "short_name": "配将",
+      "url": "/simulator",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "战报分析",
+      "short_name": "战报",
+      "url": "/ocr",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
