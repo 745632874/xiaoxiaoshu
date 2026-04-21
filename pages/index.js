@@ -227,6 +227,8 @@ export default function Home() {
             { href: '/heroes', icon: '🏛️', title: '武将库', desc: '43+武将数据' },
             { href: '/formations', icon: '⚔️', title: '阵容推荐', desc: 'T0-T3阵容排行' },
             { href: '/kaihuang', icon: '⛏️', title: '开荒模版', desc: '7大经典阵容' },
+            { href: '/compare', icon: '⚖️', title: '武将对比', desc: '对比武将属性', isNew: true },
+            { href: '/counters', icon: '⚔️', title: '克制表', desc: '克制关系一览', isNew: true },
             { href: '/skills', icon: '📖', title: '战法解析', desc: '战法配置推荐' },
             { href: '/guides', icon: '📚', title: '攻略中心', desc: '新手到精通' },
             { href: '/simulator', icon: '🧮', title: '配将模拟器', desc: '自由搭配阵容' },
@@ -241,6 +243,14 @@ export default function Home() {
                 onMouseOver={e => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(201, 168, 76, 0.15)' }}
                 onMouseOut={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
               >
+                {item.isNew && (
+                  <span style={{
+                    position: 'absolute', top: '8px', right: '8px',
+                    background: 'linear-gradient(135deg, #e74c3c, #c0392b)', color: '#fff',
+                    padding: '2px 8px', borderRadius: '10px', fontSize: '10px', fontWeight: '700',
+                    animation: 'pulse 2s ease-in-out infinite'
+                  }}>NEW</span>
+                )}
                 <div style={{ fontSize: '32px', marginBottom: '10px', animation: 'float 3s ease-in-out infinite' }}>{item.icon}</div>
                 <div style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)', marginBottom: '4px' }}>{item.title}</div>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{item.desc}</div>
