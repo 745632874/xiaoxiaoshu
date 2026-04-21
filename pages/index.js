@@ -52,7 +52,8 @@ export default function Home() {
             <Link href="/skills">战法解析</Link>
             <Link href="/guides">攻略中心</Link>
             <Link href="/simulator">配将模拟器</Link>
-            <Link href="/tools">开源工具</Link>
+            <Link href="/gacha">抽卡模拟</Link>
+            <Link href="/ocr">战报分析</Link>
             <Link href="/community">社区评分</Link>
             <Link href="/feedback">反馈建议</Link>
           </div>
@@ -71,7 +72,8 @@ export default function Home() {
           <span className="badge">🏛️ {HEROES.length} 武将数据</span>
           <span className="badge">⛏️ {kaihuangTeams.length} 开荒模版</span>
           <span className="badge">⚔️ {FORMATIONS.filter(f => !f.isKaihuang).length} PVP阵容</span>
-          <span className="badge">🛠️ 6+ 开源工具</span>
+          <span className="badge">🎰 抽卡模拟</span>
+          <span className="badge">📊 战报分析</span>
           <span className="badge">📖 持续更新</span>
         </div>
         <div className="hero-search" style={{ position: 'relative' }}>
@@ -228,7 +230,8 @@ export default function Home() {
             { href: '/skills', icon: '📖', title: '战法解析', desc: '战法配置推荐' },
             { href: '/guides', icon: '📚', title: '攻略中心', desc: '新手到精通' },
             { href: '/simulator', icon: '🧮', title: '配将模拟器', desc: '自由搭配阵容' },
-            { href: '/tools', icon: '🛠️', title: '开源工具', desc: '6+实用工具', isNew: true },
+            { href: '/gacha', icon: '🎰', title: '抽卡模拟', desc: '测试欧气', isNew: true },
+            { href: '/ocr', icon: '📊', title: '战报分析', desc: 'OCR识别分析', isNew: true },
             { href: '/community', icon: '⭐', title: '社区评分', desc: '玩家真实评价' },
           ].map((item, index) => (
             <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
@@ -281,7 +284,7 @@ export default function Home() {
           <Link href="/"><span>🏠</span><span>首页</span></Link>
           <Link href="/heroes"><span>🏛️</span><span>武将</span></Link>
           <Link href="/formations"><span>⚔️</span><span>阵容</span></Link>
-          <Link href="/tools"><span>🛠️</span><span>工具</span></Link>
+          <Link href="/gacha"><span>🎰</span><span>抽卡</span></Link>
           <Link href="/feedback"><span>💬</span><span>反馈</span></Link>
         </div>
       </nav>
