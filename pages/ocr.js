@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { HEROES } from '../data/heroes'
 
 export default function BattleOCR() {
@@ -12,18 +12,31 @@ export default function BattleOCR() {
   const [rawText, setRawText] = useState('')
   const [showRaw, setShowRaw] = useState(false)
   const [tesseractLoaded, setTesseractLoaded] = useState(false)
+  const fileInputRef = useRef(null)
 
-  // 武将名称列表（用于识别）
+  // 武将名称列表
   const heroNames = HEROES.map(h => h.name)
 
   useEffect(() => {
     // 动态加载 Tesseract.js
     const loadTesseract = async () => {
       if (typeof window !== 'undefined' && !window.Tesseract) {
-        const script = document.createElement('script')
-        script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js'
-        script.onload = () => setTesseractLoaded(true)
-        document.head.appendChild(script)
+        try {
+          const script = document.createElement('script')
+          script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js'
+          script.async = true
+          script.onload = () => {
+            console.log('Tesseract.js loaded')
+            setTesseractLoaded(true)
+          }
+          script.onerror = () => {
+            console.error('Failed to load Tesseract.js')
+            setOcrStatus('OCR引擎加载失败，请刷新重试')
+          }
+          document.head.appendChild(script)
+        } catch (e) {
+          console.error('Error loading Tesseract:', e)
+        }
       } else if (window.Tesseract) {
         setTesseractLoaded(true)
       }
@@ -44,7 +57,6 @@ export default function BattleOCR() {
     }
   }
 
-  // 从识别文本中提取武将名称
   const extractHeroNames = (text) => {
     const found = []
     heroNames.forEach(name => {
@@ -55,27 +67,38 @@ export default function BattleOCR() {
     return found
   }
 
-  // 从文本中提取数字（伤害值）
   const extractNumbers = (text) => {
     const numbers = text.match(/\d{1,3}(,\d{3})*|\d+/g) || []
     return numbers.map(n => parseInt(n.replace(/,/g, ''))).filter(n => n > 1000)
   }
 
   const analyzeBattle = async () => {
-    if (!uploadedImage || !window.Tesseract) return
+    if (!uploadedImage) {
+      alert('请先上传战报截图')
+      return
+    }
+    
+    if (!window.Tesseract) {
+      alert('OCR引擎正在加载中，请稍等几秒后重试')
+      return
+    }
     
     setIsAnalyzing(true)
     setOcrProgress(0)
-    setOcrStatus('正在加载OCR引擎...')
+    setOcrStatus('正在初始化OCR引擎...')
     
     try {
+      setOcrStatus('正在创建识别器...')
       const worker = await window.Tesseract.createWorker('chi_sim+eng', 1, {
         logger: m => {
+          console.log('Tesseract status:', m.status, m.progress)
           if (m.status === 'recognizing text') {
-            setOcrProgress(Math.round(m.progress * 100))
-            setOcrStatus('正在识别文字...')
+            setOcrProgress(Math.round((m.progress || 0) * 100))
+            setOcrStatus('正在识别文字... ' + Math.round((m.progress || 0) * 100) + '%')
           } else if (m.status === 'loading language traineddata') {
-            setOcrStatus('正在加载中文语言包...')
+            setOcrStatus('正在加载语言包...')
+          } else if (m.status === 'initializing api') {
+            setOcrStatus('正在初始化...')
           }
         }
       })
@@ -88,31 +111,26 @@ export default function BattleOCR() {
       setRawText(text)
       setOcrStatus('正在分析战报数据...')
       
-      // 提取武将和数字
       const heroesFound = extractHeroNames(text)
       const numbers = extractNumbers(text)
-      
-      // 智能分析
       const analysisResult = analyzeText(text, heroesFound, numbers)
       setResult(analysisResult)
+      setOcrStatus('')
       
     } catch (error) {
       console.error('OCR Error:', error)
       setResult({
         error: true,
         message: '识别失败，请确保图片清晰且包含清晰的文字。建议使用游戏内截图。',
-        rawText: text || ''
+        rawText: ''
       })
+      setOcrStatus('')
     }
     
     setIsAnalyzing(false)
   }
 
-  // 分析识别到的文本
   const analyzeText = (text, heroes, numbers) => {
-    const lowerText = text.toLowerCase()
-    
-    // 判断胜负
     let winner = '未知'
     if (text.includes('胜利') || text.includes('获胜')) {
       winner = '我方胜利'
@@ -120,12 +138,10 @@ export default function BattleOCR() {
       winner = '我方失败'
     }
     
-    // 分析武将分布（假设前半部分是我方，后半部分是敌方）
     const midIndex = Math.floor(heroes.length / 2)
     const myHeroes = heroes.slice(0, midIndex || 1)
     const enemyHeroes = heroes.slice(midIndex || 1)
     
-    // 分配伤害（简单逻辑：按数字大小排序，大的给主要输出武将）
     const sortedNumbers = numbers.sort((a, b) => b - a)
     
     const myTeam = myHeroes.map((name, idx) => ({
@@ -140,17 +156,14 @@ export default function BattleOCR() {
       survive: false
     }))
     
-    // 如果没有识别到武将，使用示例数据
     if (heroes.length === 0) {
       return {
-        winner: '需要更多数据',
-        myTeam: [
-          { name: '识别结果', damage: 0, survive: true, note: '请上传更清晰的截图' }
-        ],
+        winner: '识别中',
+        myTeam: [{ name: '等待识别结果', damage: 0, survive: true, note: '请检查图片是否包含武将名称' }],
         enemyTeam: [],
         totalDamage: { my: 0, enemy: 0 },
         rounds: 0,
-        analysis: '未能从图片中识别到武将名称。建议：\n1. 使用游戏内原始截图\n2. 确保文字清晰可见\n3. 避免使用压缩过的图片\n4. 识别到的文字可以在"查看原始文本"中查看',
+        analysis: '未能从图片中识别到武将名称。建议：\n1. 使用游戏内原始截图\n2. 确保文字清晰可见\n3. 避免使用压缩过的图片',
         confidence: 'low'
       }
     }
@@ -174,6 +187,9 @@ export default function BattleOCR() {
     setResult(null)
     setRawText('')
     setShowRaw(false)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
   }
 
   return (
@@ -184,7 +200,6 @@ export default function BattleOCR() {
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>" />
       </Head>
 
-      {/* 导航栏 */}
       <nav className="navbar">
         <div className="navbar-inner">
           <Link href="/" className="navbar-logo">
@@ -198,6 +213,7 @@ export default function BattleOCR() {
             <Link href="/skills">战法解析</Link>
             <Link href="/guides">攻略中心</Link>
             <Link href="/simulator">配将模拟器</Link>
+            <Link href="/gacha">抽卡模拟</Link>
             <Link href="/ocr" className="active">战报分析</Link>
             <Link href="/community">社区评分</Link>
             <Link href="/feedback">反馈建议</Link>
@@ -206,7 +222,6 @@ export default function BattleOCR() {
       </nav>
 
       <div className="container" style={{ paddingTop: '80px' }}>
-        {/* 页面标题 */}
         <div className="page-header" style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div style={{ fontSize: '64px', marginBottom: '16px', animation: 'float 3s ease-in-out infinite' }}>📊</div>
           <h1 className="page-title" style={{ fontSize: '32px' }}>战报分析</h1>
@@ -215,29 +230,44 @@ export default function BattleOCR() {
           </p>
         </div>
 
+        {/* OCR状态 */}
+        {!tesseractLoaded && (
+          <div style={{
+            background: 'rgba(241, 196, 15, 0.1)',
+            border: '1px solid rgba(241, 196, 15, 0.3)',
+            borderRadius: 'var(--radius)',
+            padding: '16px',
+            marginBottom: '24px',
+            textAlign: 'center'
+          }}>
+            ⏳ 正在加载OCR引擎，请稍等...
+          </div>
+        )}
+
         {/* 上传区域 */}
         {!uploadedImage ? (
-          <div style={{
-            border: '2px dashed var(--border-light)',
-            borderRadius: 'var(--radius)',
-            padding: '60px 40px',
-            textAlign: 'center',
-            marginBottom: '40px',
-            transition: 'all 0.3s',
-            cursor: 'pointer'
-          }}
-          onClick={() => document.getElementById('fileInput').click()}
-          onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primary)'}
-          onMouseOut={e => e.currentTarget.style.borderColor = 'var(--border-light)'}
+          <div 
+            style={{
+              border: '2px dashed var(--border-light)',
+              borderRadius: 'var(--radius)',
+              padding: '60px 40px',
+              textAlign: 'center',
+              marginBottom: '40px',
+              transition: 'all 0.3s',
+              cursor: 'pointer',
+              background: 'white'
+            }}
+            onClick={() => fileInputRef.current?.click()}
           >
             <div style={{ fontSize: '64px', marginBottom: '16px' }}>📤</div>
             <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
-              点击或拖拽上传战报截图
+              点击上传战报截图
             </div>
             <div style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
               支持 JPG、PNG 格式，文件大小不超过 10MB
             </div>
             <input
+              ref={fileInputRef}
               id="fileInput"
               type="file"
               accept="image/*"
@@ -249,11 +279,8 @@ export default function BattleOCR() {
           <div style={{ marginBottom: '40px' }}>
             <div style={{
               position: 'relative',
-              display: 'inline-block',
-              width: '100%',
               maxWidth: '600px',
-              margin: '0 auto',
-              display: 'block'
+              margin: '0 auto 20px'
             }}>
               <img 
                 src={uploadedImage} 
@@ -288,11 +315,28 @@ export default function BattleOCR() {
             </div>
             
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
-              {!tesseractLoaded && (
-                <div style={{ marginBottom: '12px', color: 'var(--orange)', fontSize: '14px' }}>
-                  ⏳ 正在加载OCR引擎...
+              <div style={{ marginBottom: '12px', color: 'var(--text-muted)', fontSize: '14px' }}>
+                {ocrStatus || (tesseractLoaded ? 'OCR引擎已就绪' : 'OCR引擎加载中...')}
+              </div>
+              
+              {isAnalyzing && (
+                <div style={{
+                  width: '300px',
+                  height: '6px',
+                  background: 'var(--border)',
+                  borderRadius: '3px',
+                  margin: '0 auto 12px',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    height: '100%',
+                    width: `${ocrProgress}%`,
+                    background: 'linear-gradient(90deg, #3498db, #2980b9)',
+                    transition: 'width 0.3s'
+                  }} />
                 </div>
               )}
+              
               <button
                 onClick={analyzeBattle}
                 disabled={isAnalyzing || !tesseractLoaded}
@@ -309,30 +353,8 @@ export default function BattleOCR() {
                   boxShadow: '0 4px 15px rgba(52, 152, 219, 0.3)'
                 }}
               >
-                {isAnalyzing ? `${ocrStatus} ${ocrProgress}%` : '🔍 开始识别'}
+                {isAnalyzing ? `识别中... ${ocrProgress}%` : '🔍 开始识别'}
               </button>
-              
-              {isAnalyzing && (
-                <div style={{
-                  marginTop: '16px',
-                  maxWidth: '300px',
-                  margin: '16px auto 0'
-                }}>
-                  <div style={{
-                    height: '4px',
-                    background: 'var(--border)',
-                    borderRadius: '2px',
-                    overflow: 'hidden'
-                  }}>
-                    <div style={{
-                      height: '100%',
-                      width: `${ocrProgress}%`,
-                      background: 'linear-gradient(90deg, #3498db, #2980b9)',
-                      transition: 'width 0.3s'
-                    }} />
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         )}
@@ -360,15 +382,14 @@ export default function BattleOCR() {
                   color: result.confidence === 'high' ? '#27ae60' : 
                          result.confidence === 'medium' ? '#f39c12' : '#e74c3c'
                 }}>
-                  {result.confidence === 'high' ? '高置信度' : 
-                   result.confidence === 'medium' ? '中等置信度' : '低置信度'}
+                  {result.confidence === 'high' ? '✓ 高置信度' : 
+                   result.confidence === 'medium' ? '△ 中等置信度' : '✗ 低置信度'}
                 </span>
               )}
             </h2>
 
             {!result.error ? (
               <>
-                {/* 结果概览 */}
                 <div style={{
                   background: result.winner === '我方胜利' ? 
                     'linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(39, 174, 96, 0.1))' :
@@ -393,18 +414,11 @@ export default function BattleOCR() {
                   }}>
                     {result.winner}
                   </div>
-                  {result.rounds > 0 && (
-                    <div style={{ fontSize: '14px', color: 'var(--text-muted)', marginTop: '4px' }}>
-                      战斗回合：{result.rounds}回合
-                    </div>
-                  )}
                 </div>
 
-                {/* 双方阵容对比 */}
-                {result.myTeam && result.myTeam.length > 0 && (
+                {(result.myTeam?.length > 0 || result.enemyTeam?.length > 0) && (
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '24px' }}>
-                    {/* 我方 */}
-                    {result.myTeam.length > 0 && (
+                    {result.myTeam?.length > 0 && (
                       <div>
                         <h3 style={{ marginBottom: '12px', color: '#3498db' }}>我方阵容</h3>
                         {result.myTeam.map((hero, idx) => (
@@ -432,8 +446,7 @@ export default function BattleOCR() {
                       </div>
                     )}
 
-                    {/* 敌方 */}
-                    {result.enemyTeam && result.enemyTeam.length > 0 && (
+                    {result.enemyTeam?.length > 0 && (
                       <div>
                         <h3 style={{ marginBottom: '12px', color: '#e74c3c' }}>敌方阵容</h3>
                         {result.enemyTeam.map((hero, idx) => (
@@ -463,7 +476,6 @@ export default function BattleOCR() {
                   </div>
                 )}
 
-                {/* 战术分析 */}
                 <div style={{
                   background: 'var(--bg-secondary)',
                   borderRadius: 'var(--radius)',
@@ -478,7 +490,6 @@ export default function BattleOCR() {
                 </div>
               </>
             ) : (
-              /* 错误提示 */
               <div style={{
                 background: 'rgba(231, 76, 60, 0.1)',
                 border: '1px solid rgba(231, 76, 60, 0.3)',
@@ -493,7 +504,6 @@ export default function BattleOCR() {
               </div>
             )}
 
-            {/* 查看原始文本 */}
             {rawText && (
               <div style={{ marginTop: '20px' }}>
                 <button
@@ -523,7 +533,7 @@ export default function BattleOCR() {
                     overflow: 'auto',
                     border: '1px solid var(--border)'
                   }}>
-                    {rawText}
+                    {rawText || '（无）'}
                   </div>
                 )}
               </div>
@@ -589,13 +599,12 @@ export default function BattleOCR() {
             使用说明：<br/>
             1. 上传游戏内原始截图效果最佳<br/>
             2. 确保文字清晰可见，避免模糊图片<br/>
-            3. 首次使用需要加载OCR引擎（约2-5秒）<br/>
+            3. 首次使用需要加载OCR引擎（约5-10秒）<br/>
             4. 中文识别准确率取决于图片质量
           </p>
         </div>
       </div>
 
-      {/* 底部 */}
       <div className="footer">
         <p>⚔️ 率土百科 · 率土之滨游戏辅助网站</p>
         <p style={{ marginTop: '8px' }}>
@@ -604,7 +613,6 @@ export default function BattleOCR() {
         <p style={{ marginTop: '8px', opacity: 0.5 }}>© 2026 率土百科 · 仅供游戏参考</p>
       </div>
 
-      {/* 移动端底部导航 */}
       <nav className="bottom-nav">
         <div className="bottom-nav-inner">
           <Link href="/"><span>🏠</span><span>首页</span></Link>
