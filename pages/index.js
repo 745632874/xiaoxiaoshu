@@ -54,7 +54,7 @@ export default function Home() {
             <Link href="/simulator">配将模拟器</Link>
             <Link href="/gacha">抽卡模拟</Link>
             <Link href="/ocr">战报分析</Link>
-            <Link href="/community">社区评分</Link>
+            <Link href="/tools">工具箱</Link>
             <Link href="/feedback">反馈建议</Link>
           </div>
         </div>
