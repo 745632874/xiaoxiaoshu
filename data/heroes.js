@@ -209,12 +209,12 @@ export const HEROES = [
     type: "spd",
     stats: { atk: 112, def: 92, intel: 52, spd: 108 },
     skills: ["skill_025", "skill_026"],
-    tags: ["物理输出", "先手", "全能"],
-    description: "蜀国全能战士，高面板高机动性。自带追击配合怯战效果，能胜任多种阵容位置，是蜀国万金油武将。",
-    bestTeams: ["team_shufeng", "team_kaihuang_4"],
-    rating: { score: 92, votes: 2987 },
+    tags: ["物理输出", "先手", "全能", "加强"],
+    description: "【4/15加强】蜀国全能战士，高面板高机动性。4/15调整后银龙冲阵增伤效果持续至战斗结束（最多叠加3次），蜀步、赵无敌等队伍强度大幅提升，后期伤害爆炸！",
+    bestTeams: ["team_shufeng", "team_kaihuang_4", "team_zhaowudi"],
+    rating: { score: 95, votes: 3200 },
     position: "大营/前锋",
-    note: "垒石迎击最佳前锋之一"
+    note: "4/15加强！增伤可叠加3次持续至战斗结束，蜀步核心"
   },
   {
     id: "hero_014",
@@ -703,6 +703,55 @@ export const HEROES = [
     rating: { score: 97, votes: 4765 },
     position: "大营",
     note: "丑刀队大营输出，必练"
+  },
+  // ===== XP武将下放全赛季（4/15更新）=====
+  {
+    id: "hero_xp_guanyu",
+    name: "关羽XP",
+    rarity: "star5",
+    country: "蜀",
+    cost: 3.0,
+    type: "atk",
+    stats: { atk: 102, def: 86, intel: 43, spd: 72 },
+    skills: ["skill_xp_guanyu_1", "skill_xp_guanyu_2"],
+    tags: ["物理输出", "控制", "XP下放", "国家队"],
+    description: "【4/15下放全赛季】蜀国五虎上将核心，樊渊泅囚提供强力控制与输出。攻击成长2.54，速度成长1.81，是蜀国物理阵容的灵魂人物。XP下放后全赛季可用！",
+    bestTeams: ["team_wuhu", "team_xp_caodou"],
+    rating: { score: 96, votes: 3567 },
+    position: "中军/大营",
+    note: "4/15下放全赛季！蜀骑、蜀步核心"
+  },
+  {
+    id: "hero_xp_sunce",
+    name: "孙策XP",
+    rarity: "star5",
+    country: "吴",
+    cost: 2.5,
+    type: "atk",
+    stats: { atk: 90, def: 70, intel: 38, spd: 62 },
+    skills: ["skill_xp_sunce_1", "skill_xp_sunce_2"],
+    tags: ["物理输出", "前排", "XP下放", "吴国"],
+    description: "【4/15下放全赛季】吴国霸王，霸王之威提供稳定的追击伤害。攻击成长2.25，防御成长1.75，可作为前锋使用。XP下放后全赛季可用！",
+    bestTeams: ["team_xp_caodou", "team_wu_fadao"],
+    rating: { score: 91, votes: 2456 },
+    position: "前锋/中军",
+    note: "4/15下放全赛季！螃蟹队核心之一"
+  },
+  {
+    id: "hero_xp_xiahouchun",
+    name: "夏侯惇XP",
+    rarity: "star5",
+    country: "魏",
+    cost: 2.0,
+    type: "def",
+    stats: { atk: 88, def: 72, intel: 42, spd: 58 },
+    skills: ["skill_xp_xiahouchun_1", "skill_xp_xiahouchun_2"],
+    tags: ["物理输出", "辅助", "XP下放", "魏国"],
+    description: "【4/15下放全赛季】魏国名将，辅助输出两不误。XP下放后全赛季可用，可搭配多种阵容，是平民玩家的强力选择！",
+    bestTeams: ["team_xp_caodou", "team_wei_fadao"],
+    rating: { score: 88, votes: 1890 },
+    position: "前锋/中军",
+    note: "4/15下放全赛季！螃蟹队核心之一"
   }
 ];
 
