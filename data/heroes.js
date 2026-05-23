@@ -752,6 +752,55 @@ export const HEROES = [
     rating: { score: 88, votes: 1890 },
     position: "前锋/中军",
     note: "4/15下放全赛季！螃蟹队核心之一"
+  },
+  // ===== 5/20版本新增武将 =====
+  {
+    id: "hero_liuhui",
+    name: "刘徽",
+    rarity: "star5",
+    country: "晋",
+    cost: 3.0,
+    type: "intel",
+    stats: { atk: 38, def: 72, intel: 112, spd: 88 },
+    skills: ["skill_liuhui_1", "skill_liuhui_2"],
+    tags: ["谋略输出", "辅助", "增伤", "内政", "新武将"],
+    description: "【5/20新武将】魏晋时期数学家刘徽，全新谋略辅助核心！指挥战法提供友军全体策略伤害提升40%（受谋略属性影响），每回合衰减1/6；同时令伤害率在80%-150%范围随机浮动，每回合收敛。敛徽穷极是当前版本最强谋略辅助之一！内政技能每日交易前50W资源无损。",
+    bestTeams: [],
+    rating: { score: 90, votes: 0 },
+    position: "中军",
+    note: "5/20新武将！谋略辅助核心，前期内政强力"
+  },
+  {
+    id: "hero_huangzhong",
+    name: "黄忠",
+    rarity: "star5",
+    country: "蜀",
+    cost: 2.5,
+    type: "atk",
+    stats: { atk: 108, def: 76, intel: 42, spd: 72 },
+    skills: ["skill_huangzhong_1", "skill_huangzhong_2"],
+    tags: ["物理输出", "控制", "加强", "弓兵", "挑衅"],
+    description: "【5/20加强】战法距离2→3，伤害率60%-120%（原50%-100%）！黄忠加强后输出能力大幅提升，攻击距离的增加让他不再局限于前排，可安全站在中军位置输出，是蜀国物理阵容的新选择！",
+    bestTeams: ["team_shu_nu"],
+    rating: { score: 82, votes: 0 },
+    position: "中军/大营",
+    note: "5/20加强！战法距离+1，伤害大幅提升"
+  },
+  {
+    id: "hero_dengai",
+    name: "邓艾",
+    rarity: "star5",
+    country: "魏",
+    cost: 2.5,
+    type: "atk",
+    stats: { atk: 102, def: 78, intel: 48, spd: 82 },
+    skills: ["skill_dengai_1", "skill_dengai_2"],
+    tags: ["物理输出", "动摇", "控制", "加强", "弓兵"],
+    description: "【5/20加强】发动率40%→45%，伤害率80%-160%（原75%-150%）！邓艾加强后稳定性提升，动摇效果每回合产生逃兵并降低士气，是魏国物理控制阵容的强力选择！",
+    bestTeams: ["team_wei_control"],
+    rating: { score: 80, votes: 0 },
+    position: "中军/大营",
+    note: "5/20加强！发动率和伤害双提升"
   }
 ];
 

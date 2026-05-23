@@ -453,6 +453,67 @@ export const FORMATIONS = [
     winRate: "68%",
     isKaihuang: true,
     kaihuangLevel: "T1"
+  },
+  // ===== 5/20版本新增阵容 =====
+  {
+    id: "team_liuhui_fadao",
+    name: "刘徽魏法刀",
+    country: "晋+魏",
+    tags: ["新武将", "谋略输出", "T1", "法刀"],
+    heroes: ["刘徽", "司马懿", "曹操"],
+    description: "【5/20新阵容】刘徽+司马懿双指挥谋略输出！刘徽提供40%增伤（受谋略影响）配合司马懿的叠加爆发，魏法刀体系再添强力核心！曹操提供减伤和属性提升。",
+    advantages: ["新武将加持", "双指挥体系", "谋略爆发强"],
+    disadvantages: ["刘徽刚出", "造价较高", "需要高谋略红度"],
+    formationType: "谋略爆发",
+    rating: { score: 92, votes: 0 },
+    level: "T1",
+    cost: "高",
+    winRate: "70%"
+  },
+  {
+    id: "team_liuhui_luzhu",
+    name: "刘徽陆抗朱儁",
+    country: "晋+吴+群",
+    tags: ["新武将", "谋略辅助", "T2", "工具人"],
+    heroes: ["刘徽", "陆抗", "朱儁"],
+    description: "【5/20新阵容】刘徽辅助陆抗朱儁双谋略输出！刘徽40%增伤配合陆抗和朱儁的谋略输出，稳定高效，造价较低适合平民玩家！",
+    advantages: ["新武将", "造价平民", "稳定输出"],
+    disadvantages: ["爆发一般", "依赖刘徽红度"],
+    formationType: "谋略辅助",
+    rating: { score: 86, votes: 0 },
+    level: "T2",
+    cost: "中",
+    winRate: "65%"
+  },
+  {
+    id: "team_huangzhong_nu",
+    name: "黄忠蜀努队",
+    country: "蜀",
+    tags: ["加强", "物理输出", "T2", "弓兵"],
+    heroes: ["黄忠", "刘备", "马云禄"],
+    description: "【5/20加强阵容】黄忠加强后可安心站在中军！配合刘备治疗和马云禄追击，蜀国物理弓兵阵容新选择！战法距离3让黄忠不再怕被近身！",
+    advantages: ["加强后可用", "蜀国标配", "造价适中"],
+    disadvantages: ["整体强度T2", "马云禄怕怯战"],
+    formationType: "物理弓兵",
+    rating: { score: 84, votes: 0 },
+    level: "T2",
+    cost: "中",
+    winRate: "63%"
+  },
+  {
+    id: "team_dengai_control",
+    name: "邓艾控制队",
+    country: "魏",
+    tags: ["加强", "动摇", "控制", "T2"],
+    heroes: ["邓艾", "荀彧", "曹操"],
+    description: "【5/20加强阵容】邓艾加强后动摇效果更稳定！配合荀彧的debuff和曹操的减伤，魏国控制体系完整，适合喜欢稳扎稳打的玩家！",
+    advantages: ["加强后稳定", "控制全面", "魏国标配"],
+    disadvantages: ["怕法刀", "整体T2"],
+    formationType: "魏国控制",
+    rating: { score: 83, votes: 0 },
+    level: "T2",
+    cost: "中",
+    winRate: "62%"
   }
 ];
 
