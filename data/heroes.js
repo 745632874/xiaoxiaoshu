@@ -116,7 +116,7 @@ export const HEROES = [
     bestTeams: ["team_t0_1"],
     rating: { score: 94, votes: 2987 },
     position: "前锋",
-    note: "垒石体系核心，需保底卡池获取"
+    note: "垒石体系核心，需保底卡池获取 | ⭐6/24加强：首次受伤必叠属性+额外叠1层"
   },
   {
     id: "hero_008",
@@ -230,7 +230,7 @@ export const HEROES = [
     bestTeams: ["team_kaihuang_1", "team_kaihuang_2", "team_shufeng"],
     rating: { score: 99, votes: 5876 },
     position: "大营",
-    note: "开荒T0首选，速度最快武将"
+    note: "开荒T0首选，速度最快武将 | ⭐6/24加强：每次伤害提升策略攻击1.5%-5%，最高6次"
   },
   {
     id: "hero_015",
@@ -506,7 +506,7 @@ export const HEROES = [
     bestTeams: ["team_qun_bukeyi", "team_lv_gui"],
     rating: { score: 97, votes: 5201 },
     position: "大营",
-    note: "群雄核心，鬼吕变身爆炸输出"
+    note: "群雄核心，鬼吕变身爆炸输出 | 🔥6/24加强：目标2→2-3个，伤害率70%-140%，T0回归"
   },
   {
     id: "hero_032",
@@ -554,7 +554,7 @@ export const HEROES = [
     bestTeams: ["team_qun_bukeyi"],
     rating: { score: 95, votes: 3987 },
     position: "大营",
-    note: "群雄国家队核心"
+    note: "群雄国家队核心 | ⭐6/24政策调整：5级及以下土地与采垦场产量+50→+100"
   },
   {
     id: "hero_035",
@@ -801,6 +801,70 @@ export const HEROES = [
     rating: { score: 80, votes: 0 },
     position: "中军/大营",
     note: "5/20加强！发动率和伤害双提升"
+  },
+  {
+    id: "hero_chendao",
+    name: "陈到",
+    rarity: "star5",
+    country: "蜀",
+    cost: 2.5,
+    type: "atk",
+    stats: { atk: 110, def: 88, intel: 42, spd: 102 },
+    skills: ["skill_chendao_1"],
+    tags: ["物理输出", "追击", "控制", "加强", "步兵"],
+    description: "【6/24加强】战法距离4→5，伤害率140%-280%→150%-300%，额外追击2次（原3次）！调整后前锋位无需宝物即可放中军大营！",
+    bestTeams: ["team_shufeng_chendao"],
+    rating: { score: 88, votes: 0 },
+    position: "大营/中军",
+    note: "🔥6/24加强！战法距离+1，大营位无宝物要求"
+  },
+  {
+    id: "hero_fazheng",
+    name: "法正",
+    rarity: "star5",
+    country: "蜀",
+    cost: 2.0,
+    type: "intel",
+    stats: { atk: 38, def: 76, intel: 108, spd: 104 },
+    skills: ["skill_fazheng_1"],
+    tags: ["谋略辅助", "加速", "全队增益", "加强"],
+    description: "【6/24加强】第3回合起目标改为友军全体，跳过准备概率30%-60%（受速度影响）。蜀智队核心或可回归！",
+    bestTeams: ["team_shuzhi_new", "team_fazheng_jiayou"],
+    rating: { score: 90, votes: 0 },
+    position: "中军",
+    note: "🔥6/24加强！友军全体+跳过准备，蜀智有望回归"
+  },
+  {
+    id: "hero_xuwei_sp",
+    name: "徐庶SP",
+    rarity: "star5",
+    country: "蜀",
+    cost: 2.5,
+    type: "intel",
+    stats: { atk: 44, def: 70, intel: 116, spd: 98 },
+    skills: ["skill_xuwei_sp_1"],
+    tags: ["谋略输出", "暴走", "追击", "加强", "步兵"],
+    description: "【6/24大幅加强】伤害率65%-130%，暴走概率25%-50%，暴走目标改为距离3内随机敌军！SP蜀骑核心有望再现战场！",
+    bestTeams: ["team_xusp_shuqi"],
+    rating: { score: 92, votes: 0 },
+    position: "大营/中军",
+    note: "🔥6/24大幅加强！暴走命中稳定，蜀骑复苏"
+  },
+  {
+    id: "hero_hufang",
+    name: "胡芳",
+    rarity: "star5",
+    country: "晋",
+    cost: 2.0,
+    type: "intel",
+    stats: { atk: 36, def: 72, intel: 112, spd: 100 },
+    skills: ["skill_hufang_1"],
+    tags: ["谋略辅助", "双修", "爆发", "加强", "弓兵"],
+    description: "【6/24加强】发动率40%，伤害类型自适应（攻击/谋略取高），伤害率90%-180%！物理/谋略双体系均可适配！",
+    bestTeams: ["team_hufang_phys", "team_hufang_mohu"],
+    rating: { score: 86, votes: 0 },
+    position: "中军",
+    note: "🔥6/24加强！自适应伤害双体系核心"
   }
 ];
 
