@@ -5112,3 +5112,10 @@
 - ✅ xiaoxiaoshu.cc 正常（307重定向）
 - 🔴 Vercel状态无变化，需人工操作
 - ℹ️ 6/24战斗平衡调整倒计时6天
+
+### 21:18 心跳检查 (6/18)
+- 🔴 stzb-helper.vercel.app HTTP响应308→HTTPS失败（持续约**60天**，SSL握手超时）
+- ✅ xiaoxiaoshu.cc 正常（307重定向）
+- 🔴 Vercel状态无变化，需人工操作
+- ℹ️ HTTP:308出现（Vercel边缘有响应），但HTTPS应用层仍超时，DNS/SSL配置问题
+- ℹ️ 6/24战斗平衡调整倒计时6天
