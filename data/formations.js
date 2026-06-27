@@ -604,6 +604,51 @@ export const FORMATIONS = [
     level: "T1",
     cost: "中",
     winRate: "67%"
+  },
+  {
+    id: "team_wu_zhouzhou",
+    name: "周泰吴肉盾队",
+    country: "吴",
+    tags: ["加强", "肉盾", "吴国", "6/24"],
+    heroes: ["周泰", "孙权", "陆逊"],
+    description: "【6/24加强阵容】周泰加强后首次受伤必叠属性+额外1层！配合孙权的规避和陆逊的谋略输出，吴国肉盾体系强度大幅提升！",
+    advantages: ["周泰加强后更肉", "孙权规避保护", "陆逊谋略爆发"],
+    disadvantages: ["怕必中", "速度要求高"],
+    formationType: "吴国肉盾",
+    rating: { score: 86, votes: 0 },
+    level: "T1",
+    cost: "中",
+    winRate: "70%"
+  },
+  {
+    id: "team_hufang_zhongxin",
+    name: "胡芳双修队",
+    country: "晋",
+    tags: ["加强", "双修", "辅助", "6/24"],
+    heroes: ["胡芳", "司马炎", "王元姬"],
+    description: "【6/24加强阵容】胡芳加强后伤害类型自适应（取攻击/谋略高者）！配合司马炎的治疗和王元姬的辅助，晋国双修体系灵活多变！",
+    advantages: ["伤害自适应", "双体系灵活", "加强后面板优秀"],
+    disadvantages: ["怕避其锋芒", "速度竞争激烈"],
+    formationType: "晋国辅助",
+    rating: { score: 88, votes: 0 },
+    level: "T1",
+    cost: "中",
+    winRate: "68%"
+  },
+  {
+    id: "team_xusp_fanpu",
+    name: "徐庶SP反击队",
+    country: "蜀",
+    tags: ["加强", "暴走", "反击", "6/24"],
+    heroes: ["徐庶SP", "严颜", "刘备"],
+    description: "【6/24加强阵容】徐庶SP加强后暴走命中更稳定（距离3内随机目标）！配合严颜的垒石反击和刘备的减伤，蜀国反击暴走体系全面提升！",
+    advantages: ["暴走命中稳定", "反击叠加伤害", "蜀国新思路"],
+    disadvantages: ["怕怯战", "需要一定红度"],
+    formationType: "蜀国反击",
+    rating: { score: 87, votes: 0 },
+    level: "T1",
+    cost: "中",
+    winRate: "65%"
   }
 ];
 

@@ -595,6 +595,19 @@ export const SKILLS = [
     stars: 5
   },
   {
+    id: "skill_lvbu_1_new",
+    name: "辕门射戟(加强版)",
+    type: "active",
+    target: "enemy_group",
+    effect: "【6/24加强】对敌军群体2-3人（目标数提升）发动一次强力攻击（伤害率70%-140%，提升），并使自身受到的下一次普通攻击伤害降低50%，持续1回合。",
+    cooldown: 3,
+    tags: ["主动", "物理输出", "群体", "减伤", "加强"],
+    heroes: ["吕布"],
+    quality: "极强",
+    description: "【6/24加强】目标数提升至2-3人！伤害率同步提升！群吕布核心输出技能，鬼吕变身爆炸输出！",
+    stars: 5
+  },
+  {
     id: "skill_zhoutai_1_new",
     name: "疮疡累身(加强版)",
     type: "passive",
